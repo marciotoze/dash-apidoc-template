@@ -1,0 +1,16 @@
+{
+  "name": "AcmeCorp Api documentation",
+  "version": "1.1.0",
+  "description": "Documentation for the REST api access provided at AcmeCorp",
+  "title": "Custom apiDoc browser title",
+  "url" : "https://api.example.com",
+  "sampleUrl": "https://apidoc.free.beeceptor.com",
+  "header": {
+    "title": "Introduction",
+    "filename": "header.md"
+  },
+  "footer": {
+    "title": "Best practices",
+    "filename": "footer.md"
+  }
+}
