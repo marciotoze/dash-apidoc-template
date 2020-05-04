@@ -4,12 +4,12 @@
 body, p, a, div, th, td {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 pre.prettyprint {
   background: #373D43;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 #header, #footer {
@@ -27,7 +27,7 @@ pre.prettyprint {
 
 td.code {
   font-size: 14px;
-  font-family: "Source Code Pro", monospace;
+  font-family: 'Inconsolata', monospace;
   font-style: normal;
   font-weight: 400;
 }
@@ -43,7 +43,6 @@ p {
 }
 
 h1 {
-  font-family: "Source Sans Pro Semibold", sans-serif;
   font-weight: normal;
   font-size: 24px;
   line-height: 34px;
@@ -52,16 +51,15 @@ h1 {
 }
 
 h2 {
-  font-family: "Source Sans Pro", sans-serif;
+  background: #f1f1f1;
   font-weight: normal;
   font-size: 18px;
   line-height: 28px;
   margin: 0 0 10px 0;
-  padding: 0;
+  padding: 3px 10px;
 }
 
 section h1 {
-  font-family: "Source Sans Pro", sans-serif;
   font-weight: 700;
   font-size: 24px;
   line-height: 40px;
@@ -71,22 +69,19 @@ section h1 {
 }
 
 article h1 {
-  font-family: "Source Sans Pro Bold", sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 24px;
   line-height: 26px;
 }
 
 article h2 {
-  font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
   margin: 0 0 10px 0;
 }
 
 article h3 {
-  font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
   font-size: 16px;
   line-height: 18px;
@@ -94,7 +89,6 @@ article h3 {
 }
 
 article h4 {
-  font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
   font-size: 14px;
   line-height: 16px;
@@ -108,20 +102,21 @@ table {
 }
 
 th {
-  background-color: #f5f5f5;
   text-align: left;
-  font-family: "Source Sans Pro", sans-serif;
   font-weight: 700;
   padding: 4px 8px;
-  border: #e0e0e0 1px solid;
+  border-bottom: #e0e0e0 1px solid;
   text-transform: uppercase;
   color: #777;
-  font-size: 12px;
+  font-size: 11px;
+}
+
+tr:nth-child(even) {
+  background: #f9f9f9;
 }
 
 td {
   padding: 5px;
-  border: #e0e0e0 1px solid;
 }
 
 td > p {
@@ -156,7 +151,6 @@ td > p {
 }
 
 #apidoc h1 {
-  font-family: "Source Sans Pro", sans-serif;
   font-weight: 700;
   font-size: 32px;
   line-height: 40px;
@@ -166,7 +160,6 @@ td > p {
 }
 
 #apidoc h2 {
-  font-family: "Source Sans Pro Bold", sans-serif;
   font-weight: 600;
   font-size: 22px;
   line-height: 26px;
@@ -232,7 +225,6 @@ pre.language-html {
   color: #ffffff;
   display: inline-block;
   float: left;
-  font-family: "Source Sans Pro", sans-serif;
   font-size: 12px;
   font-weight: 600;
   margin-right: 5px;
@@ -253,7 +245,7 @@ pre.language-html {
   background: #2196f3;
 }
 
-.type__del {
+.type__delete {
   background: #e7515a;
 }
 
@@ -278,7 +270,7 @@ pre.language-api .pun {
 pre code {
   display: block;
   font-size: 14px;
-  font-family: "Source Code Pro", monospace;
+  font-family: 'Inconsolata', monospace;
   font-style: normal;
   font-weight: 400;
   word-wrap: normal;
@@ -324,7 +316,7 @@ pre code.sample-request-response-json {
 }
 
 .article-code {
-  padding: 20px;
+  padding: 0px 20px;
   display: table-cell;
   width: 450px;
   background: #3E4349;
@@ -355,8 +347,8 @@ pre code.sample-request-response-json {
 }
 
 .navtype {
-  font-size: 11px;
-  min-width: 32px;
+  font-size: 10px;
+  min-width: 30px;
   font-weight: bold;
   display: inline-block;
   text-transform: uppercase;
@@ -395,7 +387,6 @@ pre code.sample-request-response-json {
   margin: 0;
   padding: 4px 10px;
   border: 0;
-  font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-size: 14px;
   border-left: 3px solid transparent;
@@ -416,7 +407,6 @@ pre code.sample-request-response-json {
 .sidenav > li.nav-header > a {
   padding: 4px 10px;
   width: 190px;
-  font-family: "Source Sans Pro", sans-serif;
   font-weight: 700;
   font-size: 14px;
   color: #555;
@@ -697,10 +687,28 @@ ul.nav-tabs > li.active > a:hover {
   background-color: rgba(0,0,0,.4);
 }
 
-p.deprecated span{
-  color: #ff0000;
+p.deprecated {
+  border-left: 3px solid #c7254e;
+  padding: 10px;
+  font-size: 14px;
+  color: #c7254e;
+  background: #F7F1F3;
+}
+
+p.deprecated span {
   font-weight: bold;
-  text-decoration: underline;
+  padding-right: 5px;
+}
+
+p.deprecated a {
+  font-size: 14px;
+  color: #c7254e;
+  font-weight: bold;
+}
+
+p.deprecated a:hover {
+  color: #444;
+  text-decoration: none;
 }
 
 /* ------------------------------------------------------------------------------------------

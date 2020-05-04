@@ -416,6 +416,9 @@ define({ "api": [
         "name": "PUT-updateAccount"
       }
     ],
+    "deprecated": {
+      "content": "use now (#Account:Create_an_account)"
+    },
     "header": {
       "fields": {
         "Header": [

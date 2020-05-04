@@ -90,6 +90,8 @@
  * @apiVersion 1.0.0
  * @apiPermission PUT-updateAccount
  *
+ * @apiDeprecated use now (#Account:Create_an_account)
+ *
  * @apiHeader {String} Authorization Admin JWT key
  * @apiHeaderExample {json} Header-Example:
  *     {

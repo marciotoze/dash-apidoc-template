@@ -5,6 +5,7 @@
   <title>Loading...</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <link href="vendor/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="vendor/prettify.css" rel="stylesheet" media="screen">
   <link href="css/style.css" rel="stylesheet" media="screen, print">
@@ -131,8 +132,8 @@
         {{#if article.author}}<h4 class="muted">Authored by: {{article.author}}</h4>{{/if}}
 
         {{#if article.deprecated}}
-          <p class="deprecated"><span>{{__ "DEPRECATED"}}</span>
-            {{{markdown article.deprecated.content}}}
+          <p class="deprecated">
+            <span>{{__ "DEPRECATED"}}</span> {{{markdown article.deprecated.content}}}
           </p>
         {{/if}}
 
@@ -180,6 +181,7 @@
 
         {{subTemplate "article-param-block-example" params=article.header _hasType=_hasTypeInHeaderFields section="header"}}
         {{subTemplate "article-param-block-example" params=article.parameter _hasType=_hasTypeInParameterFields section="parameter"}}
+
         {{subTemplate "article-param-block-example" params=article.success _hasType=_hasTypeInSuccessFields section="success"}}
         {{subTemplate "article-param-block-example" params=article.error _col1="Name" _hasType=_hasTypeInErrorFields section="error"}}
 
