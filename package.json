@@ -1,0 +1,27 @@
+{
+  "name": "dash-apidoc-template",
+  "description": "Template for apidocjs",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=8"
+  },
+  "author": "Marcio Toze",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marciotoze/dash-apidoc-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/marciotoze/dash-apidoc-template/issues"
+  },
+  "homepage": "https://marciotoze.github.io/dash-apidoc-template/",
+  "keywords": [
+    "apidocjs",
+    "apidoc",
+    "theme",
+    "template"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}
