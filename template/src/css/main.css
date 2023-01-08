@@ -7,6 +7,10 @@ body, p, a, div, th, td {
   font-size: 14px;
 }
 
+.non-clickable {
+  cursor: default;
+}
+
 pre.prettyprint {
   background: #373D43;
   border-radius: 3px;
@@ -35,7 +39,7 @@ td.code {
 #content {
   padding-top: 16px;
   z-Index: -1;
-  margin-left: 235px;
+  margin-left: calc(max(15%, 250px));
 }
 
 p {
@@ -166,18 +170,6 @@ td > p {
   padding-top: 14px;
 }
 
-.try-buttom {
-  background-color: #2196f3;
-  font-weight: bold;
-  font-size: 13px;
-  border: 0;
-  color: #fff;
-  border-radius: 4px;
-  margin-top: 15px;
-  float: right;
-  padding: 2px 10px;
-}
-
 .try-box {
   color: #fff;
 }
@@ -189,6 +181,10 @@ td > p {
   background-color: rgba(0,0,0,.2);
   padding: 3px 20px;
   margin: 0 -20px 10px -20px;
+}
+
+.collapsible.collapse {
+  display: none;
 }
 
 /* ------------------------------------------------------------------------------------------
@@ -292,6 +288,15 @@ pre code.sample-request-response-json {
   margin: 0 !important;
 }
 
+section.show-api-group > h1 {
+  border-top: 2px solid #373D43;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 40px;
+  margin: 0px;
+  padding: 20px;
+}
+
 /* ------------------------------------------------------------------------------------------
  * Code Section
  * ------------------------------------------------------------------------------------------ */
@@ -318,7 +323,7 @@ pre code.sample-request-response-json {
 .article-code {
   padding: 0px 20px;
   display: table-cell;
-  width: 450px;
+  width: 40%;
   background: #3E4349;
   vertical-align: top;
 }
@@ -333,7 +338,7 @@ pre code.sample-request-response-json {
  * Sidenav
  * ------------------------------------------------------------------------------------------ */
 .sidenav {
-  width: 235px;
+  width: calc(max(15%, 250px));
   margin: 0;
   padding: 0 10px 20px 10px;
   position: fixed;
@@ -346,14 +351,19 @@ pre code.sample-request-response-json {
   z-index: 10;
 }
 
-.navtype {
+.navtype,
+.navurl {
   font-size: 10px;
   min-width: 30px;
   font-weight: bold;
   display: inline-block;
   text-transform: uppercase;
-  text-align: right;
+  text-align: left;
   padding-right: 2px;
+}
+
+.navurl {
+  text-transform: lowercase;
 }
 
 .navtype__get {
@@ -368,7 +378,7 @@ pre code.sample-request-response-json {
   color: #2196f3;
 }
 
-.navtype__del {
+.navtype__delete {
   color: #e7515a;
 }
 
@@ -383,7 +393,7 @@ pre code.sample-request-response-json {
 
 .sidenav > li > a {
   display: block;
-  width: 212px;
+  width: 100%;
   margin: 0;
   padding: 4px 10px;
   border: 0;
@@ -406,7 +416,7 @@ pre code.sample-request-response-json {
 
 .sidenav > li.nav-header > a {
   padding: 4px 10px;
-  width: 190px;
+  width: calc(max(15%, 250px));
   font-weight: 700;
   font-size: 14px;
   color: #555;
@@ -423,7 +433,11 @@ pre code.sample-request-response-json {
   border-right: #60d060 4px solid;
 }
 
-.sidenav > li.is-new a:after {
+.sidenav > li.is-new > a {
+  width: calc(100% - 24px); /* save space for the [new] label */
+}
+
+.sidenav > li.is-new a:before {
   content: "new";
   background: #8dbf42;
   color: #fff;
@@ -434,7 +448,7 @@ pre code.sample-request-response-json {
   text-align: right;
   display: inline-block;
   position: absolute;
-  right: 0px;
+  right: -24px; /* we created some space to the right */
   margin-top: 2px;
 }
 
@@ -442,7 +456,7 @@ pre code.sample-request-response-json {
  * Side nav search
  * ------------------------------------------------------------------------------------------ */
 .sidenav-search {
-  width: 235px;
+  width: calc(max(15%, 250px));
   left: 0px;
   position: fixed;
   padding: 16px 20px 10px 20px;
@@ -649,42 +663,38 @@ tr.del td {
  * Tabs
  * ------------------------------------------------------------------------------------------ */
 ul.nav-tabs {
-  margin: 0 -20px;
-  padding: 0 20px;
-  border: 0;
-  background-color: rgba(0,0,0,.2);
+  margin: 0px -20px;
+  padding: 0px 20px;
+  border: 0px;
+  background-color: rgba(0,0,0,0.8);
 }
 
 ul.nav-tabs > li {
-  margin: 0;
-}
-
-ul.nav-tabs > li.active > a {
-  color: #f1f1f1;
-  border: 0;
-  background-color: rgba(0,0,0,.4);
+  margin: 0px;
+  border: 0px;
 }
 
 ul.nav-tabs > li > a {
-  background: transparent;
+  background-color: transparent;
   color: #f1f1f1;
-  border-radius: 0;
+  border-radius: 0px;
   padding: 2px 10px;
   margin-right: 5px;
-  border: 0;
 }
 
 .tab-content {
-  background: #373D43;
-  padding: 0 20px;
-  margin: 0 -20px;
+  background: rgba(0,0,0,0.6); /* #373D43; */
+  padding: 0px 20px;
+  margin: 0px -20px 16px -20px;
 }
 
 ul.nav-tabs > li > a:hover,
+ul.nav-tabs > li.active > a,
 ul.nav-tabs > li.active > a:hover {
-  color: #f1f1f1;
-  border: 0;
-  background-color: rgba(0,0,0,.4);
+  color: #333;
+  margin-right: 5px;
+  padding: 0px 10px;
+  background-color: #f1f1f1;
 }
 
 p.deprecated {
