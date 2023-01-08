@@ -170,6 +170,10 @@ td > p {
   padding-top: 14px;
 }
 
+.try-btn {
+  margin-bottom: 20px;
+}
+
 .try-box {
   color: #fff;
 }
@@ -274,18 +278,34 @@ pre code {
 }
 
 pre code.sample-request-response-json {
+  padding: 16px;
+  background: rgba(0,0,0,0.6);
   white-space: pre-wrap;
   max-height: 500px;
   overflow: auto;
 }
+
 
 #project {
   padding: 10px 20px;
   border-bottom: 1px solid #ebebeb;
 }
 
+fieldset h3 {
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
 .form-group {
-  margin: 0 !important;
+  margin: 2px;
+}
+
+.sample-request-btn-controls {
+  margin: 16px 0px !important;
+}
+
+select {
+  color: black;
 }
 
 section.show-api-group > h1 {
@@ -693,7 +713,6 @@ ul.nav-tabs > li.active > a,
 ul.nav-tabs > li.active > a:hover {
   color: #333;
   margin-right: 5px;
-  padding: 0px 10px;
   background-color: #f1f1f1;
 }
 
