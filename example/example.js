@@ -1,320 +1,201 @@
 /**
- * @apiDefine successResponse
- * @apiSuccess (200) {String} id User Id
- * @apiSuccess (200) {String} name User full name
- * @apiSuccess (200) {String} username User full username
- * @apiSuccess (200) {String} userGroup Group this user belongs to
+ * @apiDefine admin:computer User access only
+ * This optional description belong to to the group admin.
  */
 
 /**
- * @apiDefine successExample
- * @apiSuccessExample {json} Success-Response:
- * HTTP/1.1 200 OK
- * {
- *   "id": '5c444e1387e95374633c1e0d',
- *   "name": "Jhon Snow",
- *   "userGroup": "User",
- *   "username": "i_know_nothing"
- * }
- */
-
-/**
- * @apiDefine errorExample
- * @apiErrorExample {json} Error-Response:
- * HTTP/1.1 409 Conflict
- * {
- *   message: "Username already exists"
- * }
- */
-
-
-/**
- *
- * @api {POST} /api/account/create Create an account
- * @apiName Create an account
- * @apiDescription An admin can create an account
- * @apiGroup Account
- * @apiVersion 1.1.0
- * @apiPermission POST-createAccount
- *
- * @apiHeader {String} Authorization Admin JWT key
- * @apiHeaderExample {json} Header-Example:
- *     {
- *       "Authorization": "Bearer thisisjwttokenshouldbeonger"
- *     }
- *
- * @apiParam (Body) {String} name User full name
- * @apiParam (Body) {String{6..20}} username Username for login
- * @apiParam (Body) {String} [password] If not provided will be auto generated
- * @apiParam (Body) {String="User", "Admin", "Moderator"} [userGroup="User"] User group the user belongs to
- *
- * @apiExample {curl} curl
- *   curl -X POST /api/account/create \
- *        -H "Authorization: Bearer thisisjwttokenshouldbeonger" \
- *        -d '{"name":"Jhon Snow", "username":"i_know_nothing"}'
- *
- * @apiExample {node.js} node.js
- *   const axios = require('axios');
- *   try {
- *      const response = await axios({
- *        method: 'POST',
- *        url: '/api/account/create',
- *        headers: {
- *           'Authorization': 'Bearer thisisjwttokenshouldbeonger'
- *        },
- *        data: {
- *          'name': 'Jhon Snow',
- *          'username': 'i_know_nothing'
- *        }
- *     });
- *     console.log('User created: ', response);
- *   } catch (error) {
- *     console.error(error);
- *   }
- *
- * @apiUse successResponse
- * @apiUse successExample
- *
- * @apiError {Object} error Error response
- * @apiUse errorExample
- *
- */
-
-
-/**
- *
- * @api {PUT} /api/account/:id Update an account
- * @apiName Update an account
- * @apiDescription An admin can update account
- * @apiGroup Account
- * @apiVersion 1.0.0
- * @apiPermission PUT-updateAccount
- *
- * @apiDeprecated use now (#Account:Create_an_account)
- *
- * @apiHeader {String} Authorization Admin JWT key
- * @apiHeaderExample {json} Header-Example:
- *     {
- *       "Authorization": "Bearer thisisjwttokenshouldbeonger"
- *     }
- *
- * @apiParam (Body) {String} [name] User full name
- * @apiParam (Body) {String="User", "Admin", "Moderator"} [userGroup] User group the user belongs to
- *
- * @apiExample {curl} curl
- *   curl -X PUT /api/account/5c444e1387e95374633c1e0d \
- *        -H "Authorization: Bearer thisisjwttokenshouldbeonger" \
- *        -d '{"name":"I am Snow"}'
- *
- * @apiExample {node.js} node.js
- *   const axios = require('axios');
- *   try {
- *      const response = await axios({
- *        method: 'PUT',
- *        url: '/api/account/5c444e1387e95374633c1e0d',
- *        headers: {
- *           'Authorization': 'Bearer thisisjwttokenshouldbeonger'
- *        },
- *        data: {
- *          'name': 'I am Snow'
- *        }
- *     });
- *     console.log('User created: ', response);
- *   } catch (error) {
- *     console.error(error);
- *   }
- *
- * @apiUse successResponse
- * @apiSuccessExample {json} Success-Response:
- * HTTP/1.1 200 OK
- * {
- *   "id": '5c444e1387e95374633c1e0d',
- *   "name": "I am Snow",
- *   "userGroup": "User",
- *   "username": "i_know_nothing"
- * }
- *
- * @apiError {Object} error Error response
- * @apiErrorExample {json} Error-Response:
- * HTTP/1.1 404 Notfound
- * {
- *   message: "No account found"
- * }
- *
- */
-
-
-/**
- *
- * @api {DELETE} /api/account/:id DELETE an account
- * @apiName DELETE an account
- * @apiDescription An admin can delete account
- * @apiGroup Account
- * @apiVersion 1.0.0
- * @apiPermission DELETE-deleteAccount
- *
- * @apiHeader {String} Authorization Admin JWT key
- * @apiHeaderExample {json} Header-Example:
- *     {
- *       "Authorization": "Bearer thisisjwttokenshouldbeonger"
- *     }
- *
- * @apiExample {curl} curl
- *   curl -X DELETE /api/account/5c444e1387e95374633c1e0d \
- *        -H "Authorization: Bearer thisisjwttokenshouldbeonger" \
- *
- * @apiExample {node.js} node.js
- *   const axios = require('axios');
- *   try {
- *      const response = await axios({
- *        method: 'DELETE',
- *        url: '/api/account/5c444e1387e95374633c1e0d',
- *        headers: {
- *           'Authorization': 'Bearer thisisjwttokenshouldbeonger'
- *        }
- *     });
- *     console.log('User created: ', response);
- *   } catch (error) {
- *     console.error(error);
- *   }
- *
- * @apiSuccessExample {json} Success-Response:
- * HTTP/1.1 200 OK
- * {
- *   "message": 'Successfuly deleted'
- * }
- *
- * @apiError {Object} error Error response
- * @apiErrorExample {json} Error-Response:
- * HTTP/1.1 404 Notfound
- * {
- *   message: "No account found"
- * }
- */
-
-
-
-/**
- *
- * @api {GET} /api/account/:id Get an account
- * @apiName Get an account
- * @apiDescription An admin can get an account
- * @apiGroup Account
- * @apiVersion 1.1.0
- * @apiPermission GET-getAccount
- *
- * @apiHeader {String} Authorization Admin JWT key
- * @apiHeaderExample {json} Header-Example:
- *     {
- *       "Authorization": "Bearer thisisjwttokenshouldbeonger"
- *     }
- *
- * @apiExample {curl} curl
- *   curl -X GET /api/account/:id \
- *        -H "Authorization: Bearer thisisjwttokenshouldbeonger" \
- *
- * @apiExample {node.js} node.js
- *   const axios = require('axios');
- *   try {
- *      const response = await axios({
- *        method: 'GET',
- *        url: '/api/account/:id',
- *        headers: {
- *           'Authorization': 'Bearer thisisjwttokenshouldbeonger'
- *        }
- *     });
- *     console.log('User created: ', response);
- *   } catch (error) {
- *     console.error(error);
- *   }
- *
- * @apiUse successResponse
- * @apiUse successExample
- *
- * @apiError {Object} error Error response
- * @apiErrorExample {json} Error-Response:
- * HTTP/1.1 404 Notfound
- * {
- *   message: "No account found"
- * }
- */
-
-
-
-/**
- *
- * @api {PATCH} /api/account/:id Patch Update an account
- * @apiName Patch Update an account
- * @apiDescription An admin can update account
- * @apiGroup Account
- * @apiVersion 1.0.0
- * @apiPermission PUT-updateFullAccount
- */
-
-/**
- *
- * @api {HEAD} /api/account/:id Account head info
- * @apiName Account head info
- * @apiDescription An admin can update account
- * @apiGroup Account
- * @apiVersion 1.0.0
- */
-
-
-/**
- *
- * @api {OPTIONS} /api/account/:id Just a options demo
- * @apiName Just a options demo
- * @apiDescription An admin can update account
- * @apiGroup Account
- * @apiVersion 1.0.0
- */
-
-
-
-/**
- *
- * @api {POST} /api/user Register user
- * @apiName Register user
- * @apiDescription User registration
+ * @api {get} /user/:region/:id/:opt Read data of a User
+ * @apiVersion 0.3.0
+ * @apiName GetUser
  * @apiGroup User
- * @apiVersion 1.0.0
+ * @apiPermission admin:computer
  *
- * @apiParam (Body) {String} [firstname]  Optional Firstname of the User.
- * @apiParam (Body) {String} lastname Mandatory Lastname.
- * @apiParam (Body) {String} username Mandatory username.
- * @apiParam (Body) {String} password Mandatory password.
- * @apiParam (Body) {String} email Mandatory email.
- * @apiParam (Body) {String} country="BD" Mandatory with default value "BD".
- * @apiParam {Number} [age=18] Optional Age with default 18.
+ * @apiDescription Compare version 0.3.0 with 0.2.0 and you will see the green markers with new items in version 0.3.0 and red markers with removed items since 0.2.0.
  *
- * @apiSuccess (200) {String} firstname Firstname of the User.
- * @apiSuccess (200) {String} lastname Lastname.
- * @apiSuccess (200) {String} username username.
- * @apiSuccess (200) {Object} email info.
- * @apiSuccess (200) {String} email.address email address.
- * @apiSuccess (200) {Object} email.verified Email verification info
- * @apiSuccess (200) {String} email.verified.expire Sent link expire date
- * @apiSuccess (200) {Boolean} email.verified.value Already verified or not
- * @apiSuccess (200) {String} country User country code
- * @apiSuccess (200) {Number} age User age
+ * @apiHeader {String} Authorization The token can be generated from your user profile.
+ * @apiHeader {String} X-Apidoc-Cool-Factor=big Some other header with a default value.
+ * @apiHeaderExample {Header} Header-Example
+ *     "Authorization: token 5f048fe"
+ * @apiParam {Number} id User unique ID
+ * @apiParam {String} region=fr-par User region
+ * @apiParam {String} [opt] An optional param
  *
- * @apiError {Object} error Error response
+ * @apiExample {bash} Curl example
+ * curl -H "Authorization: token 5f048fe" -i https://api.example.com/user/fr-par/4711
+ * curl -H "Authorization: token 5f048fe" -H "X-Apidoc-Cool-Factor: superbig" -i https://api.example.com/user/de-ber/1337/yep
+ * @apiExample {js} Javascript example
+ * const client = AcmeCorpApi('5f048fe');
+ * const user = client.getUser(42);
+ * @apiExample {python} Python example
+ * client = AcmeCorpApi.Client(token="5f048fe")
+ * user = client.get_user(42)
  *
+ * @apiSuccess {Number}   id            The Users-ID.
+ * @apiSuccess {Date}     registered    Registration Date.
+ * @apiSuccess {String}   name          Fullname of the User.
+ * @apiSuccess {String[]} nicknames     List of Users nicknames (Array of Strings).
+ * @apiSuccess {Object}   profile       Profile data (example for an Object)
+ * @apiSuccess {Number}   profile.age   Users age.
+ * @apiSuccess {String}   profile.image Avatar-Image.
+ * @apiSuccess {Object[]} options       List of Users options (Array of Objects).
+ * @apiSuccess {String}   options.name  Option Name.
+ * @apiSuccess {String}   options.value Option Value.
+ *
+ * @apiError NoAccessRight Only authenticated Admins can access the data.
+ * @apiError UserNotFound   The <code>id</code> of the User was not found.
+ * @apiError (500 Internal Server Error) InternalServerError The server encountered an internal error
+ *
+ * @apiErrorExample Response (example):
+ *     HTTP/1.1 401 Not Authenticated
+ *     {
+ *       "error": "NoAccessRight"
+ *     }
  */
+function getUser () { }
 
 /**
+ * @api {post} /user Create a new User
+ * @apiVersion 0.3.0
+ * @apiName PostUser
+ * @apiGroup User
+ * @apiPermission none
  *
- * @api {POST} /api/array Just an array of object
- * @apiName Just an array of object
- * @apiDescription Just an array of object test
- * @apiGroup Test
- * @apiVersion 1.0.0
+ * @apiDescription In this case "apiErrorStructure" is defined and used.
+ * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
  *
- * @apiSuccess (200) {Array} cars List of car manufacturers
- * @apiSuccess (200) {String} cars.manufacturer Name of car manufacturers
- * @apiSuccess (200) {String} cars.logo Logo of car manufacturers
+ * @apiBody {Number} age Age of the User
+ * @apiBody {String} name=Caroline Name of the User
+ * @apiBody {Date} extraInfo.hireDate Date when user was hired
+ * @apiBody {Date} extraInfo.hireDateWithDefault=2021-09-01 Date when user was hired with default
+ * @apiBody {String} extraInfo.nickname Nickname of the user
+ * @apiBody {Boolean} extraInfo.isVegan=true Is the user vegan? (boolean with default)
+ * @apiBody {Boolean} extraInfo.isAlive Is the user alive? (boolean with no default)
+ * @apiBody {String} extraInfo.secrets.crush The user secret crush
+ * @apiBody {Number} extraInfo.secrets.hair=1000 Number of hair of user
  *
- * @apiError {Object} error Error response
+ * @apiSuccess {Number} id         The new Users-ID.
  *
+ * @apiUse CreateUserError
  */
+function postUser () { }
+
+/**
+ * @api {put} /user/:id Change a User
+ * @apiVersion 0.3.0
+ * @apiName PutUser
+ * @apiGroup User
+ * @apiPermission none
+ *
+ * @apiDescription This function has same errors like POST /user, but errors not defined again, they were included with "apiErrorStructure"
+ *
+ * @apiParam {Number} id <code>id</code> of the user.
+ * @apiBody {String} name Name of the User.
+ * @apiBody {File} avatar Upload avatar.
+ *
+ * @apiUse CreateUserError
+ */
+function putUser () { }
+
+/**
+ * @api {delete} /user/:id Delete user
+ * @apiVersion 0.3.0
+ * @apiName DeleteUser
+ * @apiGroup User
+ * @apiPermission admin
+ *
+ * @apiDescription Be careful! This will remove all the data associated with that user!
+ *
+ * @apiHeader {String} Authorization The token can be generated from your user profile.
+ * @apiHeaderExample {Header} Header-Example
+ *     "Authorization: token 5f048fe"
+ * @apiParam {Number} id <code>id</code> of the user.
+ *
+ * @apiExample {bash} Curl example
+ * curl -X DELETE -H "Authorization: token 5f048fe" -i https://api.example.com/user/4711
+ * @apiExample {js} Javascript example
+ * const client = AcmeCorpApi('5f048fe');
+ * const user = client.deleteUser(42);
+ * @apiExample {python} Python example
+ * client = AcmeCorpApi.Client(token="5f048fe")
+ * user = client.delete_user(42)
+ *
+ * @apiSuccess {String} result <code>ok</code> if everything went fine.
+ * @apiSuccess {String} [nullableField] This response field is not always there (can be null).
+ * @apiSuccessExample {json} Success-Example
+ *     HTTP/1.1 200 OK
+ *     {
+ *         "result": "ok"
+ *     }
+ *
+ * @apiError NoAccessRight Only authenticated Admins can access the data.
+ * @apiError UserNotFound   The <code>id</code> of the User was not found.
+ * @apiError (500 Internal Server Error) InternalServerError The server encountered an internal error.
+ *
+ * @apiErrorExample Response (example):
+ *     HTTP/1.1 401 Not Authenticated
+ *     {
+ *       "error": "NoAccessRight"
+ *     }
+ */
+function deleteUser () { }
+
+/**
+ * @api {post} /user/:id Thank a user: this is quite a long name indeed
+ * @apiVersion 0.3.0
+ * @apiName ThankUser
+ * @apiGroup User
+ * @apiDescription This is here to have a long name in the left menu.
+ * @apiSampleRequest off
+ * @apiParam {Number} id <code>id</code> of the user.
+ */
+function thankUser () { }
+
+/**
+ * @api {post} /city Create a new city
+ * @apiVersion 0.3.0
+ * @apiName CreateCity
+ * @apiGroup City
+ * @apiDescription Create a new city.
+ * @apiBody {String} name=Paris Name of the city
+ * @apiQuery {String=Aerial,Land,Underwater} view=Aerial Type of view.
+ * @apiQuery {Number} zoom Zoom.
+ */
+function createCity () { }
+
+/**
+ * @api {get} /category Get a category
+ * @apiVersion 0.3.0
+ * @apiSampleRequest http://www.example.com
+ * @apiName GetCategory
+ * @apiGroup Category (official)
+ * @apiDescription Get a category. Sample request on example.com here.
+ * @apiQuery {Number} id Category ID.
+ */
+function getCategory () { }
+
+/**
+ * @api {delete} /category Delete a category
+ * @apiVersion 0.3.0
+ * @apiSampleRequest off
+ * @apiName DeleteCategory
+ * @apiGroup Category (official)
+ * @apiDescription Delete a category. Sample request has been disabled here.
+ * @apiQuery {Number} id Category ID.
+ * @apiParamExample {json} Some json code:
+ *   {
+ *     "user": "Sample User",
+ *      "payload": {
+ *        "test": [
+ *          "code": "
+ *            public class HelloWorldTest {
+ *              HelloWorld hw = new HelloWorld();
+ *              @Test
+ *              public void testOkay {
+ *              assertEquals(\"HelloWorld\", hw.getMsg());
+ *            }
+ *         }"
+ *        ]
+ *      }
+ *   }
+ */
+function deleteCategory () { }

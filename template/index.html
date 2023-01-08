@@ -2,22 +2,24 @@
 <html>
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Loading...</title>
+  <title>__API_NAME__</title>
+  <meta name="description" content="__API_DESCRIPTION__">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-  <link href="vendor/bootstrap.min.css" rel="stylesheet" media="screen">
-  <link href="vendor/prettify.css" rel="stylesheet" media="screen">
-  <link href="css/style.css" rel="stylesheet" media="screen, print">
-  <link href="img/favicon.ico" rel="icon" type="image/x-icon">
-  <script src="vendor/polyfill.js"></script>
+  <link href="assets/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="assets/prism.css" rel="stylesheet" />
+  <link href="assets/main.css" rel="stylesheet" media="screen, print">
+  <link href="assets/favicon.ico" rel="icon" type="image/x-icon">
+  <link href="assets/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="assets/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
+  <link href="assets/favicon-16x16.png"rel="icon" type="image/png" sizes="16x16">
 </head>
-<body class="container-fluid">
+<body data-spy="scroll" class="container-fluid">
 
 <script id="template-sidenav" type="text/x-handlebars-template">
 <nav id="scrollingNav">
   <div class="sidenav-search">
-    <input class="form-control search" type="text" placeholder="{{__ "Filter..."}}">
+    <input class="form-control search" data-action="filter-search" type="text" placeholder="{{__ "Filter..."}}">
     <span class="search-reset">x</span>
   </div>
   <ul class="sidenav nav nav-list list">
@@ -71,7 +73,7 @@
 
 <script id="template-header" type="text/x-handlebars-template">
   {{#if content}}
-    <div id="api-_" class="show-api-article show-api-_-article">{{{content}}}</div>
+    <div id="api-_header" class="show-api-article show-api-_-article">{{{content}}}</div>
   {{/if}}
 </script>
 
@@ -161,10 +163,10 @@
         {{subTemplate "article-param-block" params=article.error _col1="Name" _hasType=_hasTypeInErrorFields section="error"}}
       </div>
       <div class='article-code'>
-        {{#if_gt article.examples.length compare=0}}
+        {{#ifCond article.examples.length '>' 0}}
         <ul class="nav nav-tabs nav-tabs-examples">
           {{#each article.examples}}
-          <li{{#if_eq @index compare=0}} class="active"{{/if_eq}}>
+          <li{{#ifCond @index '==' 0}} class="active"{{/ifCond}}>
             <a href="#examples-{{../id}}-{{@index}}">{{title}}</a>
           </li>
           {{/each}}
@@ -172,12 +174,12 @@
 
         <div class="tab-content">
           {{#each article.examples}}
-          <div class="tab-pane{{#if_eq @index compare=0}} active{{/if_eq}}" id="examples-{{../id}}-{{@index}}">
+          <div class="tab-pane{{#ifCond @index '==' 0}} active{{/ifCond}}" id="examples-{{../id}}-{{@index}}">
             <pre class="prettyprint language-{{type}}" data-type="{{type}}"><code>{{content}}</code></pre>
           </div>
           {{/each}}
         </div>
-        {{/if_gt}}
+        {{/ifCond}}
 
         {{subTemplate "article-param-block-example" params=article.header _hasType=_hasTypeInHeaderFields section="header"}}
         {{subTemplate "article-param-block-example" params=article.parameter _hasType=_hasTypeInParameterFields section="parameter"}}
@@ -196,10 +198,10 @@
 
 <script id="template-article-param-block-example" type="text/x-handlebars-template">
   {{#if params}}
-    {{#if_gt params.examples.length compare=0}}
+    {{#ifCond params.examples.length '>' 0}}
       <ul class="nav nav-tabs nav-tabs-examples">
       {{#each params.examples}}
-        <li{{#if_eq @index compare=0}} class="active"{{/if_eq}}>
+        <li{{#ifCond @index '==' 0}} class="active"{{/ifCond}}>
           <a href="#{{../section}}-examples-{{../id}}-{{@index}}">{{title}}</a>
         </li>
       {{/each}}
@@ -207,12 +209,12 @@
 
       <div class="tab-content">
       {{#each params.examples}}
-        <div class="tab-pane{{#if_eq @index compare=0}} active{{/if_eq}}" id="{{../section}}-examples-{{../id}}-{{@index}}">
+        <div class="tab-pane{{#ifCond @index '==' 0}} active{{/ifCond}}" id="{{../section}}-examples-{{../id}}-{{@index}}">
         <pre class="prettyprint language-{{type}}" data-type="{{type}}"><code>{{reformat content type}}</code></pre>
         </div>
       {{/each}}
       </div>
-    {{/if_gt}}
+    {{/ifCond}}
   {{/if}}
 </script>
 
@@ -340,7 +342,7 @@
 <script id="template-compare-article" type="text/x-handlebars-template">
   <article id="api-{{article.group}}-{{article.name}}-{{article.version}}" {{#if hidden}}class="hide"{{/if}} data-group="{{article.group}}" data-name="{{article.name}}" data-version="{{article.version}}" data-compare-version="{{compare.version}}">
     <div class="pull-left">
-      <h1>{{underscoreToSpace article.group}} - {{{showDiff article.title compare.title}}}</h1>
+      <h1>{{underscoreToSpace article.groupTitle}} - {{{showDiff article.title compare.title}}}</h1>
     </div>
 
     <div class="pull-right">
@@ -377,19 +379,19 @@
     <ul class="nav nav-tabs nav-tabs-examples">
     {{#each_compare_title article.examples compare.examples}}
       {{#if typeSame}}
-        <li{{#if_eq index compare=0}} class="active"{{/if_eq}}>
+        <li{{#ifCond index '==' 0}} class="active"{{/ifCond}}>
           <a href="#compare-examples-{{../../article.id}}-{{index}}">{{{showDiff source.title compare.title}}}</a>
         </li>
       {{/if}}
 
       {{#if typeIns}}
-        <li{{#if_eq index compare=0}} class="active"{{/if_eq}}>
+        <li{{#ifCond index '==' 0}} class="active"{{/ifCond}}>
           <a href="#compare-examples-{{../../article.id}}-{{index}}"><ins>{{{source.title}}}</ins></a>
         </li>
       {{/if}}
 
       {{#if typeDel}}
-        <li{{#if_eq index compare=0}} class="active"{{/if_eq}}>
+        <li{{#ifCond index '==' 0}} class="active"{{/ifCond}}>
           <a href="#compare-examples-{{../../article.id}}-{{index}}"><del>{{{compare.title}}}</del></a>
         </li>
       {{/if}}
@@ -400,19 +402,19 @@
     {{#each_compare_title article.examples compare.examples}}
 
       {{#if typeSame}}
-        <div class="tab-pane{{#if_eq index compare=0}} active{{/if_eq}}" id="compare-examples-{{../../article.id}}-{{index}}">
+        <div class="tab-pane{{#ifCond index '==' 0}} active{{/ifCond}}" id="compare-examples-{{../../article.id}}-{{index}}">
           <pre class="prettyprint language-{{source.type}}" data-type="{{source.type}}"><code>{{{showDiff source.content compare.content}}}</code></pre>
         </div>
       {{/if}}
 
       {{#if typeIns}}
-        <div class="tab-pane{{#if_eq index compare=0}} active{{/if_eq}}" id="compare-examples-{{../../article.id}}-{{index}}">
+        <div class="tab-pane{{#ifCond index '==' 0}} active{{/ifCond}}" id="compare-examples-{{../../article.id}}-{{index}}">
           <pre class="prettyprint language-{{source.type}}" data-type="{{source.type}}"><code>{{{source.content}}}</code></pre>
         </div>
       {{/if}}
 
       {{#if typeDel}}
-        <div class="tab-pane{{#if_eq index compare=0}} active{{/if_eq}}" id="compare-examples-{{../../article.id}}-{{index}}">
+        <div class="tab-pane{{#ifCond index '==' 0}} active{{/ifCond}}" id="compare-examples-{{../../article.id}}-{{index}}">
           <pre class="prettyprint language-{{source.type}}" data-type="{{compare.type}}"><code>{{{compare.content}}}</code></pre>
         </div>
       {{/if}}
@@ -548,19 +550,19 @@
     <ul class="nav nav-tabs nav-tabs-examples">
     {{#each_compare_title source.examples compare.examples}}
       {{#if typeSame}}
-        <li{{#if_eq index compare=0}} class="active"{{/if_eq}}>
+        <li{{#ifCond index '==' 0}} class="active"{{/ifCond}}>
           <a href="#{{../../section}}-compare-examples-{{../../article.id}}-{{index}}">{{{showDiff source.title compare.title}}}</a>
         </li>
       {{/if}}
 
       {{#if typeIns}}
-        <li{{#if_eq index compare=0}} class="active"{{/if_eq}}>
+        <li{{#ifCond index '==' 0}} class="active"{{/ifCond}}>
           <a href="#{{../../section}}-compare-examples-{{../../article.id}}-{{index}}"><ins>{{{source.title}}}</ins></a>
         </li>
       {{/if}}
 
       {{#if typeDel}}
-        <li{{#if_eq index compare=0}} class="active"{{/if_eq}}>
+        <li{{#ifCond index '==' 0}} class="active"{{/ifCond}}>
           <a href="#{{../../section}}-compare-examples-{{../../article.id}}-{{index}}"><del>{{{compare.title}}}</del></a>
         </li>
       {{/if}}
@@ -571,19 +573,19 @@
     {{#each_compare_title source.examples compare.examples}}
 
       {{#if typeSame}}
-        <div class="tab-pane{{#if_eq index compare=0}} active{{/if_eq}}" id="{{../../section}}-compare-examples-{{../../article.id}}-{{index}}">
+        <div class="tab-pane{{#ifCond index '==' 0}} active{{/ifCond}}" id="{{../../section}}-compare-examples-{{../../article.id}}-{{index}}">
           <pre class="prettyprint language-{{source.type}}" data-type="{{source.type}}"><code>{{{showDiff source.content compare.content}}}</code></pre>
         </div>
       {{/if}}
 
       {{#if typeIns}}
-        <div class="tab-pane{{#if_eq index compare=0}} active{{/if_eq}}" id="{{../../section}}-compare-examples-{{../../article.id}}-{{index}}">
+        <div class="tab-pane{{#ifCond index '==' 0}} active{{/ifCond}}" id="{{../../section}}-compare-examples-{{../../article.id}}-{{index}}">
           <pre class="prettyprint language-{{source.type}}" data-type="{{source.type}}"><code>{{{source.content}}}</code></pre>
         </div>
       {{/if}}
 
       {{#if typeDel}}
-        <div class="tab-pane{{#if_eq index compare=0}} active{{/if_eq}}" id="{{../../section}}-compare-examples-{{../../article.id}}-{{index}}">
+        <div class="tab-pane{{#ifCond index '==' 0}} active{{/ifCond}}" id="{{../../section}}-compare-examples-{{../../article.id}}-{{index}}">
           <pre class="prettyprint language-{{source.type}}" data-type="{{compare.type}}"><code>{{{compare.content}}}</code></pre>
         </div>
       {{/if}}
@@ -701,7 +703,7 @@
   </div>
 </div>
 
-<script data-main="main.js" src="vendor/require.min.js"></script>
+<script data-main="main.js" src="assets/main.bundle.js"></script>
 
 <script charset="utf-8">
   function toggle(id) {
